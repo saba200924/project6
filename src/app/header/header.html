@@ -1,0 +1,12 @@
+<nav class="navbar">
+  <div class="menu-toggle" (click)="isOpen = !isOpen">☰</div>
+
+  <ul class="nav-links" [class.show]="isOpen">
+    <li>
+      <a routerLink="/home" routerLinkActive="active" (click)="closeMenu()">Home</a>
+    </li>
+    <li>
+      <a routerLink="/details" routerLinkActive="active" (click)="closeMenu()">Details</a>
+    </li>
+  </ul>
+</nav>
