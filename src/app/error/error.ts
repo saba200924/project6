@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { RouterLink, RouterModule } from "@angular/router";
+import { Router, RouterLink, RouterModule } from "@angular/router";
 
 @Component({
   selector: 'app-error',
@@ -7,4 +7,27 @@ import { RouterLink, RouterModule } from "@angular/router";
   templateUrl: './error.html',
   styleUrl: './error.scss',
 })
-export class Error {}
+export class Error {
+  constructor(private router : Router) {}
+
+
+
+
+
+
+
+
+
+  gotohome(){
+    this.router.navigate([`/home`])
+  }
+
+
+
+
+
+
+
+
+
+}

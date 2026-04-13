@@ -1,1 +1,12 @@
-<p>details works!</p>
+@if (selectedProduct) {
+      <div class="card" style="width: 18rem;">
+  <img [src]="selectedProduct.image" class="card-img-top" alt="...">
+  <div class="card-body">
+    <h5 class="card-title">{{selectedProduct.name}}</h5>
+    <p class="card-text">{{selectedProduct.description}}</p>
+    <p class="card-text">{{selectedProduct.rate}}</p>
+    <p class="card-text">${{selectedProduct.price}}</p>
+    <a href="#" class="btn btn-primary">Add to cart</a>
+  </div>
+</div>
+}

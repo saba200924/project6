@@ -12,6 +12,11 @@ export const routes: Routes = [
         loadComponent:()=>import('./home/home').then(m=>m.Home)
     },
     {
+        path:`menu`,
+        loadComponent:()=>import('./menu/menu').then(m=>m.Menu)
+    
+    },
+    {
         path:`details`,
         loadComponent:()=>import('./details/details').then(m=>m.Details)
     
