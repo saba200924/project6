@@ -11,7 +11,9 @@ import { Product } from '../models/product';
 })
 export class Details {
 
-  constructor(private route:ActivatedRoute, private api : Api, private cdr: ChangeDetectorRef){
+  constructor(private route:ActivatedRoute,
+              private api : Api,
+              private cdr: ChangeDetectorRef){
     this.route.queryParams.subscribe((data:any)=>{
       console.log(data.id);
       this.selectedid=data.id

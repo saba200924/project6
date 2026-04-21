@@ -1,21 +1,32 @@
-@for (item of categoriesarr; track $index) {
-    <button>{{item.name}}</button>
-}
-
-@for (item of productsarr; track $index) {
-    <div class="card" style="width: 18rem;" routerLink="/details" [queryParams]="{id: item.id}">
+<!-- @for (item of productsarr; track $index) {
+    <div class="card" routerLink="/details" [queryParams]="{id: item.id}">
   <img [src]="item.image" class="card-img-top" alt="...">
   <div class="card-body">
     <h5 class="card-title">{{item.name}}</h5>
     <p class="card-text">{{item.description}}</p>
-    <p class="card-text">{{item.rate}}</p>
-    <p class="card-text">${{item.price}}</p>
+    <p class="card-text">⭐{{item.rate}}</p>
+    <p class="card-text"> ${{item.price}}</p>
     <a href="#" class="btn btn-primary">Add to cart</a>
   </div>
 </div>
-}
+} -->
 
+<div class="products-container">
+  @for (item of productsarr; track $index) {
+    <div class="card" routerLink="/details" [queryParams]="{id: item.id}">
+      <img [src]="item.image" class="card-img-top" alt="...">
 
+      <div class="card-body">
+        <h5 class="card-title">{{item.name}}</h5>
+        <p class="card-text">{{item.description}}</p>
+        <p class="card-text">⭐ {{item.rate}}</p>
+        <p class="card-text">${{item.price}}</p>
+
+        <a href="#" class="btn btn-primary">Add to cart</a>
+      </div>
+    </div>
+  }
+</div>
 
 
 

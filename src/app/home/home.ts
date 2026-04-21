@@ -11,7 +11,9 @@ import { RouterModule } from '@angular/router';
   styleUrl: './home.scss',
 })
 export class Home {
-  constructor(private help: Helper, private api : Api, private cdr: ChangeDetectorRef){
+  constructor(private help: Helper,
+              private api : Api,
+              private cdr: ChangeDetectorRef){
     
   }
 
@@ -28,7 +30,6 @@ export class Home {
 
 
 
-  categoriesarr:any[]=[]
   productsarr:Product[]=[]
 
 
