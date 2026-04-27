@@ -23,12 +23,13 @@ export class Details {
 
 
     ngOnInit(){
-    this.api.getAll(`products`).subscribe((resp:any)=>{
+    this.api.getAll(`products/${this.selectedid}`).subscribe((resp:any)=>{
       console.log(resp)
-      this.productsarr=resp
-      this.selectedProduct=this.productsarr.find(el=>el.id==this.selectedid)|| new Product()
+      this.selectedProduct=resp.data
+      // this.selectedProduct=this.productsarr.find(el=>el.id==this.selectedid)|| new Product()
       this.cdr.detectChanges()  // ყველა ქოლის მერე აუცილებელია ამის დამატება !!!!!!!!!!!!!!!
-
+      console.log(this.selectedProduct);
+      
     })
   }
 

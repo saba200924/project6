@@ -1,63 +1,5 @@
-<!-- <nav class="navbar">
-  <div class="menu-toggle" (click)="isOpen = !isOpen">☰</div>
-
-  <ul class="nav-links" [class.show]="isOpen">
-    <li>
-      <h2 style="cursor: pointer;" routerLink="/home" >Foodie</h2>
-    </li>
-    <li>
-      <a routerLink="/home" routerLinkActive="active" (click)="closeMenu()">Home</a>
-    </li>
-    <li>
-      <a routerLink="/menu" routerLinkActive="active" (click)="closeMenu()">Menu</a>
-    </li>
-      <li>
-      <a routerLink="/cart" routerLinkActive="active">🛒</a>
-    </li>
-    <li>
-      <a routerLink="/login" routerLinkActive="active">Log In</a>
-    </li>
-    <li>
-      <a routerLink="/signup" routerLinkActive="active">Sign Up</a>
-    </li>
-  </ul>
-</nav> -->
-
-
-<!-- <nav class="navbar">
-
-<div class="nav-left">
-  <h2 routerLink="/home" class="logo">Foodie</h2>
-
-  <div class="nav-center" [class.show]="isOpen">
-    <a routerLink="/home" routerLinkActive="active" (click)="closeMenu()">Home</a>
-    <a routerLink="/menu" routerLinkActive="active" (click)="closeMenu()">Menu</a>
-  </div>
-</div>
-
-  <div class="menu-toggle" (click)="isOpen = !isOpen">☰</div>
-
-  <div class="nav-right" [class.show]="isOpen">
-    <a routerLink="/cart" class="cart">🛒</a>
-    <a routerLink="/login" class="login">Login</a>
-    <a routerLink="/signup" class="signup">Sign Up</a>
-  </div>
-</nav>
-
-<div class="mobile-menu" [class.show]="isOpen">
-  <a routerLink="/home" (click)="closeMenu()">Home</a>
-  <a routerLink="/menu" (click)="closeMenu()">Menu</a>
-  <a routerLink="/cart">🛒 Cart</a>
-  <a routerLink="/login">Login</a>
-  <a routerLink="/signup" class="signup">Sign Up</a>
-</div> -->
-
-
-
-
 <nav class="navbar">
 
-  <!-- LEFT -->
   <div class="nav-left">
     <h2 routerLink="/home" class="logo">Foodie</h2>
 
@@ -67,17 +9,15 @@
     </div>
   </div>
 
-  <!-- RIGHT -->
   <div class="nav-right desktop">
     <a routerLink="/cart" class="cart">🛒</a>
     <a routerLink="/login" class="login">Login</a>
     <a routerLink="/signup" class="signup">Sign Up</a>
   </div>
-
-  <!-- BURGER -->
+>
   <div class="menu-toggle" (click)="isOpen = !isOpen">☰</div>
+  
 
-  <!-- MOBILE MENU -->
   <div class="mobile-menu" [class.show]="isOpen">
     <a routerLink="/home" (click)="closeMenu()">Home</a>
     <a routerLink="/menu" (click)="closeMenu()">Menu</a>

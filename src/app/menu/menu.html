@@ -1,16 +1,41 @@
-<!-- @for (item of categoriesarr; track $index) {
-    <button>{{item.name}}</button>
-} -->
+<div class="category" style="margin-top: 150px;">
+  <label (click)="all()" for="all">All</label>
+  @for (item of categoriesarr; track item.id) {
+    <input 
+      type="radio"
+      name="category"
+      [id]="'cat-' + item.id"
+      (change)="filterByCategory(item.id)"
+      [checked]="selectedCategoryId === item.id"
+    >
+    <label 
+      [for]="'cat-' + item.id"
+      (click)="filterByCategory(item.id)"
+    >
+      {{item.name}}
+    </label>
+  }
+</div>
 
-@for (item of productsarr; track $index) {
-    <div class="card" style="width: 18rem;" routerLink="/details" [queryParams]="{id: item.id}">
-  <img [src]="item.image" class="card-img-top" alt="...">
-  <div class="card-body">
+
+<div class="products-container">
+  @for (item of productsarr; track $index) {
+    <div class="card" routerLink="/details" [queryParams]="{id: item.id}">
+      <img [src]="item.image" class="card-img-top" alt="...">
+
+<div class="card-body">
+  <div class="card-info">
     <h5 class="card-title">{{item.name}}</h5>
     <p class="card-text">{{item.description}}</p>
-    <p class="card-text">⭐{{item.rate}}</p>
-    <p class="card-text"> ${{item.price}}</p>
+    <p class="card-text">⭐ {{item.rate}}</p>
+    <p class="card-text price">${{item.price}}</p>
+  </div>
+
+  <div class="card-actions">
     <a href="#" class="btn btn-primary">Add to cart</a>
   </div>
 </div>
-}
+</div>
+  }
+</div>
+

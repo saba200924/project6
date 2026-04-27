@@ -19,7 +19,7 @@ export class Home {
 
 
   ngOnInit(){
-    this.api.getAll(`products`).subscribe((resp:any)=>{
+    this.api.getAll(`products?Take=6&Page=1`).subscribe((resp:any)=>{
       console.log(resp.data.products)
       this.productsarr=resp.data.products
       this.cdr.detectChanges()  // ყველა ქოლის მერე აუცილებელია ამის დამათება !!!!!!!!!!!!!!!

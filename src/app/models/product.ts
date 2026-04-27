@@ -12,8 +12,7 @@ export class Product{
 
 }
 
-
-
-
-
-
+export class Category{
+  id!:number
+  name!:string
+}

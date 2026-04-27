@@ -1,0 +1,176 @@
+.card {
+  width: 100%; 
+  border-radius: 16px;
+  overflow: hidden;
+  border: none;
+  background: #fff;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+  transition: all 0.3s ease;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  flex:1;
+}
+
+
+.products-container {
+  display: grid;
+  grid-template-columns: repeat(4, 270px);
+  gap: 25px;
+  padding: 30px;
+  align-items: stretch;
+  justify-content: center; 
+  max-width: 1200px;
+  margin: 0 auto;
+  margin-top: 100px;
+
+}
+
+
+
+.card-img-top {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+}
+
+// .card-body {
+//   padding: 16px;
+//   display: flex;
+//   flex-direction: column;
+//   // height: 100%;
+//   flex-grow: 1;
+// }
+
+
+.card-body {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+/* text takes all available space */
+.card-info {
+  flex: 1;
+}
+
+/* button stays at bottom */
+.card-actions {
+  margin-top: auto;
+}
+
+
+.btn {
+  margin-top: auto;
+  width: 100%;
+  border-radius: 10px;
+}
+
+.card-title {
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+
+.card-text {
+  color: #666;
+  font-size: 14px;
+  margin-bottom: 10px;
+  min-height: 40px;
+}
+
+
+.card-text:nth-of-type(2) {
+  color: #ff8c00;
+  font-weight: 500;
+}
+
+
+.card-text:nth-of-type(3) {
+  color: #ff6b2c;
+  font-size: 22px;
+  font-weight: bold;
+  margin-top: 5px;
+}
+
+
+.btn {
+  display: block;
+  width: 100%;
+  margin-top: 15px;
+  background: #ff6b2c;
+  border: none;
+  border-radius: 10px;
+  padding: 12px;
+  color: white;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+
+.btn:hover {
+  background: #e55a20;
+  transform: translateY(-2px);
+}
+
+
+.card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 15px 30px rgba(0,0,0,0.12);
+}
+
+
+.card:hover .card-img-top {
+  transform: scale(1.05);
+  transition: 0.4s;
+}
+.price {
+  color: #ff6b2c;
+  font-size: 22px;
+  font-weight: bold;
+}
+
+
+@media (max-width: 1170px) {
+  .products-container {
+    grid-template-columns: repeat(3, 1fr);
+    padding: 25px;
+  }
+}
+
+@media (max-width: 768px) {
+  .products-container {
+    grid-template-columns: repeat(2, 1fr);
+    padding: 20px;
+    gap: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .products-container {
+    grid-template-columns: 1fr;
+    padding: 15px;
+    gap: 15px;
+  }
+}
+
+
+
+
+.category label,
+.category button {
+  padding: 8px 14px;
+  margin-right: 10px;
+  border-radius: 20px;
+  cursor: pointer;
+  background: #f2f2f2;
+  transition: 0.2s;
+}
+
+.category label.active,
+.category button.active {
+  background: black;
+  color: white;
+}

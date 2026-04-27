@@ -21,6 +21,9 @@ export class Api {
     })
   }
 
+  // https://restaurantapi.stepacademy.ge/api/products?Take=100&Page=1
+
+
 
 
 }
