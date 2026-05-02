@@ -8,7 +8,9 @@ export class Product{
   price!:number
   rate!:number
   spiciness!:number
-  vegeterian!:boolean
+  vegetarian!: boolean;
+  ingredients?: string[];
+  method?: string;
 
 }
 

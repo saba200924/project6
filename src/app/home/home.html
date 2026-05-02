@@ -1,6 +1,7 @@
 <div class="products-container">
-  @for (item of productsarr; track $index) {
-    <div class="card" routerLink="/details" [queryParams]="{id: item.id}">
+  @for (item of productsarr; track item.id) {
+    <!-- The whole card navigates to details -->
+    <div class="card" [routerLink]="['/details']" [queryParams]="{id: item.id}">
       <img [src]="item.image" class="card-img-top" alt="...">
 
       <div class="card-body">
@@ -9,8 +10,15 @@
         <p class="card-text">⭐ {{item.rate}}</p>
         <p class="card-text">${{item.price}}</p>
 
-        <a href="#" class="btn btn-primary">Add to cart</a>
+        <!-- Use $event.stopPropagation() to prevent navigating to details -->
+        <!-- Pass 'item' into the function -->
+        <button class="btn btn-primary" (click)="addToCart(item, $event)">
+          Add to cart
+        </button>
       </div>
     </div>
   }
+    <div class="toast" [class.show]="showToast">
+  {{toastMessage}}
+</div>
 </div>

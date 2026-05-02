@@ -105,6 +105,38 @@
   transform: scale(1.05);
   transition: 0.4s;
 }
+
+.toast {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  background: #4caf50; /* green = success */
+  color: white;
+  padding: 12px 18px;
+  border-radius: 10px;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.3s ease;
+  font-size: 14px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+.toast.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* mobile */
+@media (max-width: 600px) {
+  .toast {
+    right: 50%;
+    transform: translate(50%, 20px);
+  }
+
+  .toast.show {
+    transform: translate(50%, 0);
+  }
+}
 @media (max-width: 600px) {
   .products-container {
     padding: 15px;

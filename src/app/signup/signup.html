@@ -1,1 +1,20 @@
-<p>signup works!</p>
+
+<form class="contt" #myForm="ngForm"  (ngSubmit)="register(myForm.value)">
+    <input type="text" placeholder="Firts Name" name="firstName" ngModel>
+    <input type="text" placeholder="Last Name" name="lastName" ngModel>
+    <input [(ngModel)]="email" type="email" placeholder="Email" name="email" ngModel email>
+    <input type="password" placeholder="Passwrod" name="password" ngModel>
+
+
+    <button [disabled]="myForm.invalid">Register</button>
+
+</form>
+
+
+@if(showVerifyInput){
+  
+  <input type="text" [(ngModel)]="code">
+  <button routerLink="/login" (click)="verify()">Verify</button>
+
+}
+

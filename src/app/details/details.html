@@ -1,12 +1,72 @@
 @if (selectedProduct) {
-      <div class="card" style="width: 18rem;">
-  <img [src]="selectedProduct.image" class="card-img-top" alt="...">
-  <div class="card-body">
-    <h5 class="card-title">{{selectedProduct.name}}</h5>
-    <p class="card-text">{{selectedProduct.description}}</p>
-    <p class="card-text">{{selectedProduct.rate}}</p>
-    <p class="card-text">${{selectedProduct.price}}</p>
-    <button class="btn btn-primary">Add to cart</button>
+<div class="details-container">
+
+  <!-- IMAGE -->
+  <div class="image-section">
+    <img [src]="selectedProduct.image" alt="{{selectedProduct.name}}">
+  </div>
+
+  <!-- INFO -->
+  <div class="info-section">
+
+    <h1 class="title">{{selectedProduct.name}}</h1>
+
+    <!-- RATING -->
+    <div class="rating">
+      @for (star of [1,2,3,4,5]; track $index) {
+        <span>
+          <i class="star" [class.filled]="$index < selectedProduct.rate"></i>
+        </span>
+      }
+      <span class="rating-text">({{selectedProduct.rate}} rating)</span>
+    </div>
+
+    <!-- PRICE -->
+    <div class="price">${{selectedProduct.price}}</div>
+
+    <!-- VEGETARIAN -->
+    @if (selectedProduct.vegetarian) {
+      <div class="veg-badge">🌱 vegetarian</div>
+    }
+
+    <!-- DESCRIPTION -->
+    <p class="description">{{selectedProduct.description}}</p>
+
+    <!-- INGREDIENTS -->
+    @if (selectedProduct.ingredients?.length) {
+      <div class="section">
+        <h3>Ingredients:</h3>
+        <ul>
+          @for (item of selectedProduct.ingredients; track $index) {
+            <li>{{item}}</li>
+          }
+        </ul>
+      </div>
+    }
+
+    <!-- METHOD -->
+    @if (selectedProduct.method) {
+      <div class="section">
+        <h3>Preparation Method:</h3>
+        <p>{{selectedProduct.method}}</p>
+      </div>
+    }
+
+    <!-- ACTIONS -->
+    <div class="actions">
+
+      <div class="quantity">
+        <button (click)="decrease()">-</button>
+        <span>{{quantity}}</span>
+        <button (click)="increase()">+</button>
+      </div>
+
+      <button class="add-btn" (click)="addToCart()">Add to Cart</button>
+
+    </div>
+  <div class="toast" [class.show]="showToast">
+  {{toastMessage}}
+</div>
   </div>
 </div>
 }

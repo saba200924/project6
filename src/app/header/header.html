@@ -21,9 +21,9 @@
   <div class="mobile-menu" [class.show]="isOpen">
     <a routerLink="/home" (click)="closeMenu()">Home</a>
     <a routerLink="/menu" (click)="closeMenu()">Menu</a>
-    <a routerLink="/cart">🛒 Cart</a>
-    <a routerLink="/login">Login</a>
-    <a routerLink="/signup" class="signup">Sign Up</a>
+    <a routerLink="/cart" (click)="closeMenu()">🛒 Cart</a>
+    <a routerLink="/login" (click)="closeMenu()">Login</a>
+    <a routerLink="/signup" class="signup" (click)="closeMenu()">Sign Up</a>
   </div>
 
 </nav>
