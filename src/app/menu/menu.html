@@ -15,6 +15,74 @@
       {{item.name}}
     </label>
   }
+
+
+  <div class="search-filter">
+  <input
+    type="text"
+    placeholder="Search products..."
+    [(ngModel)]="searchText"
+    (input)="filterBySearch()"
+  />
+</div>
+
+<!-- 🌱 VEGETARIAN TOGGLE -->
+<button
+  class="veg-btn"
+  (click)="toggleVegetarian()"
+  [class.active]="vegetarian"
+>
+  🌱 Vegetarian
+</button>
+
+<div class="spicy-filter">
+  <label>🌶️<span class="rate-value">{{ selectedSpicy }}</span></label>
+
+  <input
+    type="range"
+    min="0"
+    max="5"
+    step="1"
+    [(ngModel)]="selectedSpicy"
+    (input)="filterBySpicy()"
+  />
+</div>
+
+<div class="rate-filter">
+  <label>⭐<span class="rate-value">{{ selectedRate }}</span></label>
+    
+
+  <input
+    type="range"
+    min="0"
+    max="5"
+    step="0.5"
+    [(ngModel)]="selectedRate"
+    (input)="filterByRate()"
+  />
+</div>
+
+  <div class="price-filter">
+    <label>💰<span class="rate-value">Less than  {{ selectedPrice }}$</span></label>
+
+    <input
+      type="range"
+      min="0"
+      max="50"
+      step="2"
+      [(ngModel)]="selectedPrice"
+      (input)="filterByPrice()"
+    />
+  </div>
+
+  <!-- 🔄 RESET ALL -->
+<button
+  class="reset-btn"
+  (click)="resetAll()"
+>
+   Reset All Filter
+</button>
+
 </div>
 
 

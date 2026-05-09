@@ -173,6 +173,118 @@
   transform: translateY(0);
 }
 
+.rate-filter {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-left: 20px;
+}
+
+/* label text */
+.rate-value {
+  font-weight: 600;
+  color: #ff6b2c;
+  min-width: 35px;
+}
+
+/* RANGE INPUT */
+input[type="range"] {
+  -webkit-appearance: none;
+  width: 70px;
+  height: 4px;
+  background: #ddd;
+  border-radius: 5px;
+  outline: none;
+}
+
+/* ORANGE TRACK */
+input[type="range"]::-webkit-slider-runnable-track {
+  height: 4px;
+  background: #ff6b2c;
+  border-radius: 5px;
+}
+
+/* ORANGE THUMB */
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 14px;
+  height: 14px;
+  background: #ff6b2c;
+  border-radius: 50%;
+  cursor: pointer;
+  margin-top: -5px;
+}
+
+/* Firefox support */
+input[type="range"]::-moz-range-thumb {
+  width: 14px;
+  height: 14px;
+  background: #ff6b2c;
+  border-radius: 50%;
+  cursor: pointer;
+}
+.spicy-filter {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-left: 20px;
+}
+.price-filter {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-left: 20px;
+}
+
+.veg-btn {
+  padding: 8px 14px;
+  margin-left: 10px;
+  border-radius: 20px;
+  border: none;
+  background: #f2f2f2;
+  cursor: pointer;
+  transition: 0.2s;
+  font-weight: 500;
+}
+
+.veg-btn.active {
+  background: #2ecc71;
+  color: white;
+}
+.veg-btn,
+.reset-btn {
+  padding: 8px 14px;
+  margin-left: 10px;
+  border-radius: 20px;
+  border: none;
+  cursor: pointer;
+  transition: 0.2s;
+  font-weight: 500;
+}
+/* reset button */
+.reset-btn {
+  background: #ff6b2c;
+}
+
+.reset-btn:hover {
+  background: #e55a20;
+}
+
+.search-filter input {
+  padding: 8px 12px;
+  border-radius: 20px;
+  border: 1px solid #ddd;
+  outline: none;
+  margin-left: 10px;
+  width: 200px;
+}
+
+.search-filter input:focus {
+  border-color: #ff6b2c;
+}
+
+/* reuse same range style already defined */
+
 /* mobile */
 @media (max-width: 600px) {
   .toast {
