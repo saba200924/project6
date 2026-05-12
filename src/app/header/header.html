@@ -9,12 +9,30 @@
     </div>
   </div>
 
-  <div class="nav-right desktop">
-    <a routerLink="/cart" class="cart">🛒</a>
-    <a routerLink="/login" class="login">Login</a>
-    <a routerLink="/signup" class="signup">Sign Up</a>
-  </div>
->
+<div class="nav-right desktop">
+
+  <a routerLink="/cart" class="cart">🛒</a>
+
+  @if(isLoggedIn){
+
+    <a style="cursor: pointer;" (click)="logout()" class="signup">
+      Log out
+    </a>
+
+  } @else {
+
+    <a routerLink="/login" class="login">
+      Login
+    </a>
+
+    <a routerLink="/signup" class="signup">
+      Sign Up
+    </a>
+
+  }
+
+</div>
+
   <div class="menu-toggle" (click)="isOpen = !isOpen">☰</div>
   
 
@@ -22,8 +40,16 @@
     <a routerLink="/home" (click)="closeMenu()">Home</a>
     <a routerLink="/menu" (click)="closeMenu()">Menu</a>
     <a routerLink="/cart" (click)="closeMenu()">🛒 Cart</a>
-    <a routerLink="/login" (click)="closeMenu()">Login</a>
-    <a routerLink="/signup" class="signup" (click)="closeMenu()">Sign Up</a>
+@if(isLoggedIn){
+
+  <a class="signup" style="cursor: pointer;" (click)="logout(); closeMenu()">Logout</a>
+
+} @else {
+
+  <a routerLink="/login" (click)="closeMenu()">Login</a>
+  <a routerLink="/signup" class="signup" (click)="closeMenu()">Sign Up</a>
+
+}
   </div>
 
 </nav>

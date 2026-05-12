@@ -1,112 +1,261 @@
-<div class="category" style="margin-top: 150px;">
-  <label (click)="all()" for="all">All</label>
-  @for (item of categoriesarr; track item.id) {
-    <input 
-      type="radio"
-      name="category"
-      [id]="'cat-' + item.id"
-      (change)="filterByCategory(item.id)"
-      [checked]="selectedCategoryId === item.id"
-    >
-    <label 
-      [for]="'cat-' + item.id"
-      (click)="filterByCategory(item.id)"
-    >
-      {{item.name}}
-    </label>
-  }
+<div class="shop-layout">
 
+  <!-- FILTER SIDEBAR -->
+  <aside class="sidebar">
 
-  <div class="search-filter">
-  <input
-    type="text"
-    placeholder="Search products..."
-    [(ngModel)]="searchText"
-    (input)="filterBySearch()"
-  />
+    <div class="filter">
+
+      <h2>Filters</h2>
+
+      <!-- SEARCH -->
+      <div class="filter-item">
+
+        <label>Search</label>
+
+        <input
+          [(ngModel)]="search"
+          (input)="onSearchChange()"
+          type="search"
+          placeholder="Search dishes..."
+        >
+
+      </div>
+
+      <!-- CATEGORY -->
+      <div class="filter-item">
+
+        <h4>Categories</h4>
+
+        <div class="filter-group">
+
+          @for (item of category.category; track item.id) {
+
+            <label class="filter-label">
+
+              <input
+                type="checkbox"
+                [checked]="categoryId === item.id"
+                (change)="onSelectCategory(item.id)"
+              >
+
+              {{ item.name }}
+
+            </label>
+
+          } @empty {
+
+            <p>Loading categories...</p>
+
+          }
+
+        </div>
+
+      </div>
+
+      <!-- VEGETARIAN -->
+      <div class="filter-item">
+
+        <label class="toggle-label">
+
+          Vegetarian Only
+
+          <input
+           [(ngModel)]="vegeterian"
+             (change)="onFilterChange()"
+               type="checkbox"
+            />
+
+        </label>
+
+      </div>
+
+      <!-- SPICY -->
+      <div class="filter-item">
+
+        <p>Spiciness (0-5)</p>
+
+        <input
+          min="0"
+          max="5"
+          step="1"
+          [(ngModel)]="spiciness"
+          (input)="filter()"
+          type="range"
+        >
+
+        <span>Level: {{ spiciness }}</span>
+
+      </div>
+
+      <!-- RATING -->
+      <div class="filter-item">
+
+        <p>Minimum Rating</p>
+
+        <input
+          min="0"
+          max="5"
+          step="1"
+          [(ngModel)]="rate"
+          (input)="filter()"
+          type="range"
+        >
+
+        <span>⭐ {{ rate }}+</span>
+
+      </div>
+
+      <!-- MIN PRICE -->
+      <div class="filter-item">
+
+        <p>Min Price</p>
+
+        <input
+          min="0"
+          max="100"
+          [(ngModel)]="minPrice"
+          (input)="filter()"
+          type="range"
+        >
+
+        <span>$ {{ minPrice }}+</span>
+
+      </div>
+
+      <!-- MAX PRICE -->
+      <div class="filter-item">
+
+        <p>Max Price</p>
+
+        <input
+          min="0"
+          max="100"
+          [(ngModel)]="maxPrice"
+          (input)="filter()"
+          type="range"
+        >
+
+        <span>$ {{ maxPrice }}</span>
+
+      </div>
+
+      <!-- RESET -->
+      <button
+        class="clear-btn"
+        (click)="resetFilter()"
+      >
+        Clear All Filters
+      </button>
+
+    </div>
+
+  </aside>
+
+  <!-- PRODUCTS -->
+  <main class="products-section">
+
+    @if(productsarr.length > 0){
+
+      <div class="products-container">
+
+        @for (item of productsarr; track $index) {
+
+          <div
+            class="card"
+            routerLink="/details"
+            [queryParams]="{id: item.id}"
+          >
+
+            <img
+              [src]="item.image"
+              class="card-img-top"
+              alt="Product Image"
+            >
+
+            <div class="card-body">
+
+              <div class="card-info">
+
+                <h5 class="card-title">
+                  {{ item.name }}
+                </h5>
+
+                <p class="card-text">
+                  {{ item.description }}
+                </p>
+
+                <p class="card-rating">
+                  ⭐ {{ item.rate }}
+                </p>
+
+                <p class="price">
+                  ${{ item.price }}
+                </p>
+
+              </div>
+
+              <div class="card-actions">
+
+                @if(isLoggedIn){
+
+                  <a
+                    href="#"
+                    class="btn btn-primary"
+                    (click)="addToCart(item, $event)"
+                  >
+                    Add to Cart
+                  </a>
+
+                }
+
+                @else {
+
+                  <a
+                    href="#"
+                    class="btn btn-danger"
+                    (click)="showLoginAlert($event)"
+                  >
+                    Add to Cart
+                  </a>
+
+                }
+
+              </div>
+
+            </div>
+
+          </div>
+
+        }
+
+      </div>
+
+    }
+
+    @else {
+
+      <div class="empty-products">
+
+        <h2>Products not found</h2>
+
+        <p>
+          Try changing filters or reset everything.
+        </p>
+
+        <button (click)="resetFilter()">
+          Reset Filters
+        </button>
+
+      </div>
+
+    }
+
+  </main>
+
 </div>
 
-<!-- 🌱 VEGETARIAN TOGGLE -->
-<button
-  class="veg-btn"
-  (click)="toggleVegetarian()"
-  [class.active]="vegetarian"
->
-  🌱 Vegetarian
-</button>
+<!-- TOAST -->
 
-<div class="spicy-filter">
-  <label>🌶️<span class="rate-value">{{ selectedSpicy }}</span></label>
-
-  <input
-    type="range"
-    min="0"
-    max="5"
-    step="1"
-    [(ngModel)]="selectedSpicy"
-    (input)="filterBySpicy()"
-  />
+<div class="toast" [class.show]="showToast">
+  {{ toastMessage }}
 </div>
-
-<div class="rate-filter">
-  <label>⭐<span class="rate-value">{{ selectedRate }}</span></label>
-    
-
-  <input
-    type="range"
-    min="0"
-    max="5"
-    step="0.5"
-    [(ngModel)]="selectedRate"
-    (input)="filterByRate()"
-  />
-</div>
-
-  <div class="price-filter">
-    <label>💰<span class="rate-value">Less than  {{ selectedPrice }}$</span></label>
-
-    <input
-      type="range"
-      min="0"
-      max="50"
-      step="2"
-      [(ngModel)]="selectedPrice"
-      (input)="filterByPrice()"
-    />
-  </div>
-
-  <!-- 🔄 RESET ALL -->
-<button
-  class="reset-btn"
-  (click)="resetAll()"
->
-   Reset All Filter
-</button>
-
-</div>
-
-
-<div class="products-container">
-  @for (item of productsarr; track $index) {
-    <div class="card" routerLink="/details" [queryParams]="{id: item.id}">
-      <img [src]="item.image" class="card-img-top" alt="...">
-
-<div class="card-body">
-  <div class="card-info">
-    <h5 class="card-title">{{item.name}}</h5>
-    <p class="card-text">{{item.description}}</p>
-    <p class="card-text">⭐ {{item.rate}}</p>
-    <p class="card-text price">${{item.price}}</p>
-  </div>
-
-  <div class="card-actions">
-    <a href="#" class="btn btn-primary" (click)="addToCart(item, $event)">Add to cart</a>
-  </div>
-</div>
-</div>
-  }
-      <div class="toast" [class.show]="showToast">
-  {{toastMessage}}
-</div>
-</div>
-

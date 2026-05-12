@@ -2,7 +2,7 @@ import { ChangeDetectorRef, Component } from '@angular/core';
 import { Helper } from '../services/helper';
 import { Api } from '../services/api';
 import { Product } from '../models/product';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { CartService } from '../services/cart-service';
 
 @Component({
@@ -15,7 +15,8 @@ export class Home {
   constructor(private help: Helper,
               private api : Api,
               private cdr: ChangeDetectorRef,
-              private cartService: CartService,){
+              private cartService: CartService,
+              private router:Router ){
     
   }
 
@@ -63,6 +64,18 @@ addToCart(item: Product, event: Event) {
     this.showToast = false;
     this.cdr.detectChanges(); // Ensure the UI updates to hide toast
   }, 3000);
+}
+
+get isLoggedIn(): boolean {
+  return !!localStorage.getItem('token');
+}
+
+showLoginAlert(event: Event) {
+  event.preventDefault();
+  event.stopPropagation();
+
+  alert('Please sign in first');
+  this.router.navigate(['/login']);
 }
 
   

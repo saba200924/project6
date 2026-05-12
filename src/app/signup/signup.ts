@@ -1,45 +1,122 @@
-import { ChangeDetectorRef, Component } from '@angular/core';
-import { Api } from '../services/api';
-import { Router, RouterLink } from '@angular/router';
-import { FormsModule } from '@angular/forms';
+import { Component } from '@angular/core';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { ApiAuth } from '../services/api-auth';
+import { Router } from '@angular/router';;
 
 @Component({
   selector: 'app-signup',
-  imports: [FormsModule, RouterLink],
+  imports: [ReactiveFormsModule],
   templateUrl: './signup.html',
   styleUrl: './signup.scss',
 })
 export class Signup {
-    constructor(private api : Api, private router : Router, private cdr : ChangeDetectorRef){
-    
+ signInForm: FormGroup;
+   constructor (
+   private apiAuth : ApiAuth,
+   private router : Router,
+   private FB: FormBuilder
+  ) {
+
+// this.signInForm = this.FB.group ({
+//   firstName: ["", [Validators.required, Validators.pattern(/^[A-Za-z]+$/)]],
+//   lastName: ["",[Validators.required, Validators.pattern(/^[A-Za-z]+$/)]],
+//   email: ["", [Validators.required, Validators.email]],
+//   password: ["", [Validators.required,Validators.minLength(6), Validators.pattern(/^(?=.*[A-Z])(?=.*[^A-Za-z0-9]).+$/)
+//   ]]
+// })
+// }
+
+this.signInForm = this.FB.group({
+      firstName: ["", [Validators.required, Validators.pattern(/^[A-Za-z]+$/)]],
+      lastName: ["", [Validators.required, Validators.pattern(/^[A-Za-z]+$/)]],
+      email: ["", [Validators.required, Validators.email]],
+      password: ["", [
+        Validators.required, 
+        Validators.minLength(6), 
+        Validators.pattern(/^(?=.*[A-Z])(?=.*[^A-Za-z0-9]).+$/)
+      ]]
+    });
   }
 
-  showVerifyInput : boolean = false;
-  code  =  ""
-  email = ""
-
-
-  verify(){
-    this.api.verify({email : this.email, code : this.code}).subscribe({
-       next : (resp : any) =>{
-          this.router.navigate(["/login"])
-       },
-       error :  er => alert(er.message)
-    })
-
+  // --- Real-time Clue Logic ---
+  get hasCapitalLetter() {
+    return /[A-Z]/.test(this.signInForm.get('password')?.value || '');
   }
 
-  register(form : any){
+  get hasSpecialChar() {
+    return /[^A-Za-z0-9]/.test(this.signInForm.get('password')?.value || '');
+  }
 
-    this.api.register(form).subscribe({
-      next : (resp : any) =>{
-        
-         console.log(resp);
-         this.showVerifyInput = true;
-         this.cdr.detectChanges();
+
+
+showResendButton = false
+//   register(){
+// console.log(this.signInForm.value);
+// console.log(this.signInForm.invalid);
+
+
+//     if (this.signInForm.valid) {
+//     this.apiAuth.register(this.signInForm.value).subscribe({
+//       next: (resp: any) => {
+//         console.log(resp);
+//         this.router.navigateByUrl('/verifyemail')
+//         localStorage.setItem('email', this.signInForm.value.email)
+//       },
+//       error: (er) => {
+//         if (er.error.detail.includes('already exists')) {
+//           this.showResendButton = true;
+//         }
+//         alert(er.error.detail);
+//       }
+//     });
+//   }
+// }
+
+
+
+
+register(){
+
+  console.log("FORM VALUE:", this.signInForm.value);
+
+  if (this.signInForm.valid) {
+
+    this.apiAuth.register(this.signInForm.value).subscribe({
+
+      next: (resp: any) => {
+        console.log("SUCCESS:", resp);
+
+        this.router.navigateByUrl('/verifyemail');
+
+        localStorage.setItem(
+          'email',
+          this.signInForm.value.email
+        );
       },
-      error :  er => alert(er.message)
-    })
+
+      error: (er) => {
+
+        console.log("FULL ERROR:", er);
+
+        console.log("ERROR BODY:", er.error);
+
+        alert(JSON.stringify(er.error));
+
+        if (er.error.detail?.includes('already exists')) {
+          this.showResendButton = true;
+        }
+
+      }
+
+    });
+
+  } else {
+
+    console.log("FORM INVALID");
+
+    console.log(this.signInForm);
 
   }
+
+}
 }

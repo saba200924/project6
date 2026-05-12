@@ -1,0 +1,121 @@
+:host {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #ffffff;
+  font-family: 'Inter', -apple-system, sans-serif;
+  padding: 20px;
+}
+
+.auth-container {
+  background: white;
+  width: 100%;
+  max-width: 450px; // Slightly slimmer for a code entry
+  padding: 2.5rem;
+  border-radius: 40px;
+  border: 3px solid #ff6b2c;
+  box-shadow: 0 20px 50px rgba(255, 107, 44, 0.15);
+  text-align: center;
+  position: relative;
+  animation: float 6s ease-in-out infinite;
+}
+
+h2 {
+  color: #000;
+  font-size: 1.8rem;
+  font-weight: 800;
+  margin-bottom: 0.5rem;
+}
+
+.subtitle {
+  color: #666;
+  font-size: 0.95rem;
+  margin-bottom: 1.5rem;
+  b { color: #ff6b2c; }
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  text-align: left;
+  margin-bottom: 20px;
+
+  label {
+    font-weight: 600;
+    font-size: 0.8rem;
+    color: #444;
+    margin-left: 15px;
+  }
+
+  input {
+    width: 100%;
+    padding: 14px 20px;
+    border: 1.5px solid #e0e0e0;
+    border-radius: 25px; // All-around rounded
+    font-size: 1.2rem; // Larger font for the code
+    letter-spacing: 2px;
+    text-align: center;
+    transition: all 0.3s ease;
+    outline: none;
+    box-sizing: border-box;
+
+    &:focus {
+      border-color: #ff6b2c;
+      box-shadow: 0 0 0 4px rgba(255, 107, 44, 0.1);
+    }
+  }
+}
+
+.button-group {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+button.btn-primary {
+  background: linear-gradient(90deg, #ff6b2c, #ff8c5a);
+  color: white;
+  padding: 15px;
+  border: none;
+  border-radius: 25px;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 8px 15px rgba(255, 107, 44, 0.2);
+  transition: transform 0.2s, box-shadow 0.3s;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 20px rgba(255, 107, 44, 0.3);
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+}
+
+.resend-text {
+  font-size: 0.9rem;
+  color: #666;
+  margin-top: 5px;
+
+  .link-alt {
+    color: #000;
+    font-weight: 700;
+    text-decoration: underline;
+    cursor: pointer;
+    transition: color 0.2s;
+
+    &:hover {
+      color: #ff6b2c;
+    }
+  }
+}
+
+/* Syncing the animation from the other pages */
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-6px); }
+}

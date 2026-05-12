@@ -49,7 +49,18 @@ export class Api {
    })
    }
 
+//    getDatafromApi( url: string ){
+//   return this.http.get(this.baseUrl + url);
+// }
 
+
+getDatafromApi(url: string) {
+  return this.http.get(this.baseUrl + url, {
+    headers: {
+      "X-API-KEY": this.apiKey
+    }
+  });
+}
 
 
 }

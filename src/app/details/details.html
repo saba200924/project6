@@ -1,15 +1,16 @@
 @if (selectedProduct) {
+
 <div class="details-container">
 
   <!-- IMAGE -->
   <div class="image-section">
-    <img [src]="selectedProduct.image" alt="{{selectedProduct.name}}">
+    <img [src]="selectedProduct.image" [alt]="selectedProduct.name">
   </div>
 
   <!-- INFO -->
   <div class="info-section">
 
-    <h1 class="title">{{selectedProduct.name}}</h1>
+    <h1 class="title">{{ selectedProduct.name }}</h1>
 
     <!-- RATING -->
     <div class="rating">
@@ -18,27 +19,33 @@
           <i class="star" [class.filled]="$index < selectedProduct.rate"></i>
         </span>
       }
-      <span class="rating-text">({{selectedProduct.rate}} rating)</span>
+      <span class="rating-text">
+        ({{ selectedProduct.rate }} rating)
+      </span>
     </div>
 
     <!-- PRICE -->
-    <div class="price">${{selectedProduct.price}}</div>
+    <div class="price">
+      ${{ selectedProduct.price }}
+    </div>
 
     <!-- VEGETARIAN -->
     @if (selectedProduct.vegetarian) {
-      <div class="veg-badge">🌱 vegetarian</div>
+      <div class="veg-badge">🌱 Vegetarian</div>
     }
 
     <!-- DESCRIPTION -->
-    <p class="description">{{selectedProduct.description}}</p>
+    <p class="description">
+      {{ selectedProduct.description }}
+    </p>
 
     <!-- INGREDIENTS -->
     @if (selectedProduct.ingredients?.length) {
       <div class="section">
-        <h3>Ingredients:</h3>
+        <h3>Ingredients</h3>
         <ul>
           @for (item of selectedProduct.ingredients; track $index) {
-            <li>{{item}}</li>
+            <li>{{ item }}</li>
           }
         </ul>
       </div>
@@ -47,8 +54,8 @@
     <!-- METHOD -->
     @if (selectedProduct.method) {
       <div class="section">
-        <h3>Preparation Method:</h3>
-        <p>{{selectedProduct.method}}</p>
+        <h3>Preparation</h3>
+        <p>{{ selectedProduct.method }}</p>
       </div>
     }
 
@@ -57,16 +64,28 @@
 
       <div class="quantity">
         <button (click)="decrease()">-</button>
-        <span>{{quantity}}</span>
+        <span>{{ quantity }}</span>
         <button (click)="increase()">+</button>
       </div>
 
-      <button class="add-btn" (click)="addToCart()">Add to Cart</button>
+      <button class="add-btn" (click)="addToCart()">
+        Add to Cart
+      </button>
 
     </div>
-  <div class="toast" [class.show]="showToast">
-  {{toastMessage}}
-</div>
+
+    <!-- TOAST -->
+    <div class="toast" [class.show]="showToast">
+      {{ toastMessage }}
+    </div>
+
   </div>
 </div>
+
+} @else {
+
+<div class="loading">
+  Loading product...
+</div>
+
 }

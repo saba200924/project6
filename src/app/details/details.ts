@@ -24,16 +24,30 @@ export class Details {
 
 
 
-    ngOnInit(){
-    this.api.getAll(`products/${this.selectedid}`).subscribe((resp:any)=>{
-      console.log(resp)
-      this.selectedProduct=resp.data
-      // this.selectedProduct=this.productsarr.find(el=>el.id==this.selectedid)|| new Product()
-      this.cdr.detectChanges()  // ყველა ქოლის მერე აუცილებელია ამის დამატება !!!!!!!!!!!!!!!
-      console.log(this.selectedProduct);
+  //   ngOnInit(){
+  //   this.api.getAll(`products/${this.selectedid}`).subscribe((resp:any)=>{
+  //     console.log(resp)
+  //     this.selectedProduct=resp.data
+  //     // this.selectedProduct=this.productsarr.find(el=>el.id==this.selectedid)|| new Product()
+  //     this.cdr.detectChanges()  // ყველა ქოლის მერე აუცილებელია ამის დამატება !!!!!!!!!!!!!!!
+  //     console.log(this.selectedProduct);
       
-    })
-  }
+  //   })
+  // }
+
+  ngOnInit() {
+  if (!this.selectedid) return;
+
+  this.api.getAll(`products/${this.selectedid}`).subscribe({
+    next: (resp: any) => {
+      this.selectedProduct = resp.data;
+      this.cdr.detectChanges();
+    },
+    error: (err) => {
+      console.log('Error loading product', err);
+    }
+  });
+}
 
 
 
@@ -41,7 +55,8 @@ export class Details {
   selectedid = 0
 
   productsarr : Product[]=[]
-  selectedProduct!:Product
+  // selectedProduct!:Product
+  selectedProduct: Product | null = null;
 
   showToast = false;
   toastMessage = '';
@@ -66,9 +81,14 @@ addToCart() {
     this.toastMessage = `✅ Added ${this.quantity} item${this.quantity > 1 ? 's' : ''} successfully`;
 
   this.showToast = true;
+  // setTimeout(() => {
+  //   this.showToast = false;
+  // }, 0);
+
   setTimeout(() => {
-    this.showToast = false;
-  }, 0);
+  this.showToast = false;
+  this.cdr.detectChanges();
+}, 3000);
 }
 
 }

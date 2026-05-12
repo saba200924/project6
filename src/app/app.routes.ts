@@ -35,6 +35,10 @@ export const routes: Routes = [
         loadComponent:()=>import('./cart/cart').then(m=>m.Cart)
     },
     {
+        path:`verifyemail`,
+        loadComponent:()=>import('./verifyemail/verifyemail').then(m=>m.Verifyemail)
+    },
+    {
         path:`**`,
         loadComponent:()=>import('./error/error').then(m=>m.Error)
     },

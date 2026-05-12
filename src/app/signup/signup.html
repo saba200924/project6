@@ -1,20 +1,81 @@
+<!-- 
 
-<form class="contt" #myForm="ngForm"  (ngSubmit)="register(myForm.value)">
-    <input type="text" placeholder="Firts Name" name="firstName" ngModel>
-    <input type="text" placeholder="Last Name" name="lastName" ngModel>
-    <input [(ngModel)]="email" type="email" placeholder="Email" name="email" ngModel email>
-    <input type="password" placeholder="Passwrod" name="password" ngModel>
-
-
-    <button [disabled]="myForm.invalid">Register</button>
-
+<form class="form" [formGroup]="signInForm" (ngSubmit)="register()">
+<input type="text" formControlName = "firstName" placeholder=" First Name">
+<input type="text" formControlName = "lastName" placeholder="Last Name">
+<input type="email" formControlName = "email" placeholder="Email">
+<input type="password" formControlName = "password" placeholder="Password">
+@if (signInForm.get('password')?.errors?.['pattern'] && signInForm.get('password')?.touched) {
+  <small style="color: red;">The password must contain a capital letter and a special character!</small>
+}
+<button [disabled]="!signInForm.valid">Sign In</button>
+@if (showResendButton) {
+    <div class="confirm">
+      <p>Confirmation problems?</p>    
+      
+    </div>
+  } 
 </form>
 
+ -->
 
-@if(showVerifyInput){
-  
-  <input type="text" [(ngModel)]="code">
-  <button routerLink="/login" (click)="verify()">Verify</button>
 
-}
+ <div class="auth-container">
+  <h2>Create Account</h2>
 
+  <form class="form" [formGroup]="signInForm" (ngSubmit)="register()">
+    
+    <!-- Names Row -->
+    <div class="input-row">
+      <div class="input-group">
+        <label>First Name</label>
+        <input type="text" formControlName="firstName" placeholder="John">
+      </div>
+      <div class="input-group">
+        <label>Last Name</label>
+        <input type="text" formControlName="lastName" placeholder="Doe">
+      </div>
+    </div>
+
+    <!-- Email -->
+    <div class="input-group">
+      <label>Email</label>
+      <input type="email" formControlName="email" placeholder="example@mail.com">
+      @if (signInForm.get('email')?.invalid && signInForm.get('email')?.touched) {
+        <small class="error-text">Please enter a valid email address</small>
+      }
+    </div>
+
+    <!-- Password -->
+    <div class="input-group">
+      <label>Password</label>
+      <input type="password" formControlName="password" placeholder="••••••••">
+      
+      <!-- Password Clues Checklist -->
+      <div class="password-clues">
+        <p [class.valid]="signInForm.get('password')?.value?.length >= 6">
+          ● At least 6 characters
+        </p>
+        <p [class.valid]="hasCapitalLetter">
+          ● One capital letter
+        </p>
+        <p [class.valid]="hasSpecialChar">
+          ● One special character
+        </p>
+      </div>
+    </div>
+
+    <button type="submit" [disabled]="!signInForm.valid">Sign Up</button>
+
+    @if (showResendButton) {
+      <div class="confirm-box">
+        <p>Confirmation problems?</p>
+        <button type="button" class="btn-link">Resend Email</button>
+      </div>
+    }
+  </form>
+
+<a routerLink="/login" class="signup-link">
+  Already have an account? <b>Log In</b>
+</a>
+</div>

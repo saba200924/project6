@@ -1,0 +1,42 @@
+<!-- <div class="verify-box">
+  <h3>Confirmation for: {{ email }}</h3>
+  
+  <input 
+    type="text" 
+    [(ngModel)]="verificationCode" 
+    placeholder="Enter the code."
+  >
+  
+  <button (click)="verifyByCode()">Confirm the code</button>
+  
+  <button (click)="resend()">Send code again</button>
+</div>
+ -->
+
+
+ <div class="auth-container">
+  <h2>Verify Email</h2>
+  
+  <div class="verify-box">
+    <p class="subtitle">Confirmation for: <b>{{ email }}</b></p>
+    
+    <div class="input-group">
+      <label>Verification Code</label>
+      <input 
+        type="text" 
+        [(ngModel)]="verificationCode" 
+        placeholder="Enter the 6-digit code"
+        maxlength="6"
+      >
+    </div>
+    
+    <div class="button-group">
+      <button class="btn-primary" (click)="verifyByCode()">Confirm Code</button>
+      
+      <p class="resend-text">
+        Didn't receive a code? 
+        <span class="link-alt" (click)="resend()">Send again</span>
+      </p>
+    </div>
+  </div>
+</div>

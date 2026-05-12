@@ -1,0 +1,129 @@
+/* Wrapper to center everything */
+:host {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #ffffff;
+  font-family: 'Inter', -apple-system, sans-serif;
+}
+
+.auth-container {
+  background: white;
+  width: 90%;
+  max-width: 500px; /* Increased width as requested */
+  padding: 3rem;
+  border-radius: 40px; /* Very smooth rounded corners from the image */
+  border: 3px solid #ff6b2c;
+  
+  /* The "Alive" Orange Glow */
+  box-shadow: 0 20px 50px rgba(255, 107, 44, 0.25);
+  
+  text-align: center;
+  position: relative;
+  
+  /* Floating Animation */
+  animation: float 4s ease-in-out infinite;
+}
+
+h2 {
+  color: #000;
+  font-size: 2.2rem;
+  margin-bottom: 2rem;
+  font-weight: 800;
+  letter-spacing: -1px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  text-align: left;
+}
+
+label {
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: #333;
+  margin-bottom: -10px;
+  margin-left: 5px;
+}
+
+/* Input Styling based on the picture */
+.input-group {
+  position: relative;
+  display: flex;
+  align-items: center;
+
+  input {
+    width: 100%;
+    padding: 16px 20px;
+    border: 1.5px solid #e0e0e0;
+    border-radius: 15px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    outline: none;
+
+    &:focus {
+      border-color: #ff6b2c;
+      box-shadow: 0 0 0 4px rgba(255, 107, 44, 0.1);
+    }
+  }
+}
+
+/* The Sign In Button */
+button {
+  background: linear-gradient(90deg, #ff6b2c, #ff8c5a);
+  color: white;
+  padding: 18px;
+  border: none;
+  border-radius: 20px;
+  font-size: 1.1rem;
+  font-weight: 700;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: transform 0.2s, box-shadow 0.3s;
+  box-shadow: 0 10px 20px rgba(255, 107, 44, 0.3);
+
+  &:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 15px 25px rgba(255, 107, 44, 0.4);
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+
+  &:disabled {
+    filter: grayscale(1);
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+}
+
+/* Bottom Link */
+.signup-link {
+  display: block;
+  margin-top: 2rem;
+  color: #444;
+  text-decoration: none;
+  font-size: 1rem;
+
+  b {
+    color: #000;
+    text-decoration: underline;
+    text-underline-offset: 4px;
+    transition: color 0.2s;
+    
+    &:hover {
+      color: #ff6b2c;
+    }
+  }
+}
+
+/* Animations */
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-15px); }
+  100% { transform: translateY(0px); }
+}
