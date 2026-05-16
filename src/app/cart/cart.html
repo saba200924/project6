@@ -1,34 +1,86 @@
-<div class="cart-container">
+<div class="page">
 
-  @for (item of cartItems; track item.id) {
-    <div class="cart-item">
+  <!-- LEFT SIDE -->
+  <div class="cart-section">
 
-      <!-- IMAGE -->
-      <img [src]="item.image" class="cart-img">
-
-      <!-- INFO -->
-      <div class="cart-info">
-        <h3>{{item.name}}</h3>
-        <p>{{item.description}}</p>
-
-        <!-- QUANTITY -->
-        <div class="quantity">
-          <button (click)="decrease(item.id)">-</button>
-          <span>{{item.quantity}}</span>
-          <button (click)="increase(item.id)">+</button>
-        </div>
-      </div>
-
-      <!-- PRICE -->
-      <div class="cart-price">
-        <p>${{item.price}} each</p>
-        <h2>${{item.price * item.quantity}}</h2>
-      </div>
-
-      <!-- REMOVE -->
-      <button class="remove-btn" (click)="remove(item.id)">Delete</button>
-
+    <div class="cart-header">
+      <h1>Shopping Cart</h1>
+      <p>{{cartItems.length}} items</p>
     </div>
-  }
+
+    @for (item of cartItems; track item.id) {
+
+      <div class="cart-item">
+
+        <!-- IMAGE -->
+        <img [src]="item.image" class="cart-img" alt="food">
+
+        <!-- INFO -->
+        <div class="cart-info">
+
+          <div class="top-row">
+
+            <div>
+              <h3>{{item.name}}</h3>
+              <p>{{item.description}}</p>
+            </div>
+
+            <!-- REMOVE -->
+            <button class="remove-btn" (click)="remove(item.id)">
+              🗑
+            </button>
+
+          </div>
+
+          <div class="bottom-row">
+
+            <!-- QUANTITY -->
+            <div class="quantity">
+              <button (click)="decrease(item.id)">−</button>
+              <span>{{item.quantity}}</span>
+              <button (click)="increase(item.id)">+</button>
+            </div>
+
+            <!-- PRICE -->
+            <div class="cart-price">
+              <p>${{item.price}} each</p>
+              <h2>${{item.price * item.quantity}}</h2>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    }
+
+  </div>
+
+  <!-- RIGHT SIDE -->
+  <div class="summary">
+
+    <h2>Order Summary</h2>
+
+    <div class="summary-row">
+      <span>Subtotal</span>
+      <span>${{getSubtotal()}}</span>
+    </div>
+
+    <div class="summary-row">
+      <span>Tax (10%)</span>
+      <span>${{getTax()}}</span>
+    </div>
+
+    <div class="summary-total">
+      <span>Total</span>
+      <span>${{getTotal()}}</span>
+    </div>
+
+    <button class="checkout-btn">
+      Proceed to Checkout
+    </button>
+
+  </div>
 
 </div>

@@ -50,30 +50,6 @@ this.signInForm = this.FB.group({
 
 
 showResendButton = false
-//   register(){
-// console.log(this.signInForm.value);
-// console.log(this.signInForm.invalid);
-
-
-//     if (this.signInForm.valid) {
-//     this.apiAuth.register(this.signInForm.value).subscribe({
-//       next: (resp: any) => {
-//         console.log(resp);
-//         this.router.navigateByUrl('/verifyemail')
-//         localStorage.setItem('email', this.signInForm.value.email)
-//       },
-//       error: (er) => {
-//         if (er.error.detail.includes('already exists')) {
-//           this.showResendButton = true;
-//         }
-//         alert(er.error.detail);
-//       }
-//     });
-//   }
-// }
-
-
-
 
 register(){
 
@@ -100,7 +76,7 @@ register(){
 
         console.log("ERROR BODY:", er.error);
 
-        alert(JSON.stringify(er.error));
+        alert(er.error.detail);
 
         if (er.error.detail?.includes('already exists')) {
           this.showResendButton = true;

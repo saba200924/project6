@@ -4,9 +4,6 @@
   <aside class="sidebar">
 
     <div class="filter">
-
-      <h2>Filters</h2>
-
       <!-- SEARCH -->
       <div class="filter-item">
 
@@ -28,7 +25,7 @@
 
         <div class="filter-group">
 
-          @for (item of category.category; track item.id) {
+          @for (item of categoriesarr; track item.id) {
 
             <label class="filter-label">
 
@@ -61,7 +58,7 @@
 
           <input
            [(ngModel)]="vegeterian"
-             (change)="onFilterChange()"
+             (change)="loadProducts()"
                type="checkbox"
             />
 
@@ -160,11 +157,7 @@
 
         @for (item of productsarr; track $index) {
 
-          <div
-            class="card"
-            routerLink="/details"
-            [queryParams]="{id: item.id}"
-          >
+        <div routerLink="/details" [queryParams]="{ id: item.id }">
 
             <img
               [src]="item.image"

@@ -14,17 +14,15 @@ export class Header {
 
   constructor(private router: Router) {}
 
-  // MENU
   closeMenu() {
     this.isOpen = false;
   }
 
-  // LOGIN STATE (CHECK TOKEN)
+
   get isLoggedIn(): boolean {
     return !!localStorage.getItem('token');
   }
 
-  // LOGOUT FUNCTION
   logout(): void {
     localStorage.removeItem('token');
     this.closeMenu();

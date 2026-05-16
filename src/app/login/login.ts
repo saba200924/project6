@@ -1,105 +1,119 @@
-import { Component, OnInit } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { ApiAuth } from '../services/api-auth';
-import { CommonModule } from '@angular/common';
-import { Router, RouterLinkWithHref, RouterModule, ActivatedRoute } from '@angular/router';
-import { Auth } from '../services/auth';
+// import { Component, OnInit } from '@angular/core';
+// import { FormsModule } from '@angular/forms';
+// import { ApiAuth } from '../services/api-auth';
+// import { CommonModule } from '@angular/common';
+// import { Router, RouterLinkWithHref, RouterModule, ActivatedRoute } from '@angular/router';
+// import { Auth } from '../services/auth';
 
-@Component({
-  selector: 'app-login',
-  standalone: true,
-  imports: [FormsModule, CommonModule, RouterLinkWithHref, RouterModule],
-  templateUrl: './login.html',
-  styleUrl: './login.scss',
-  providers:[Auth]
-})
-export class Login implements OnInit{
-  userId!: number;
-  email: string = '';
-  password: string = '';
-  ProfileData: any;
+// @Component({
+//   selector: 'app-login',
+//   standalone: true,
+//   imports: [FormsModule, CommonModule, RouterLinkWithHref, RouterModule],
+//   templateUrl: './login.html',
+//   styleUrl: './login.scss',
+//   providers:[Auth]
+// })
+// export class Login implements OnInit{
+//   userId!: number;
+//   email: string = '';
+//   password: string = '';
+//   ProfileData: any;
  
   
-  constructor(
-    private apiAuth: ApiAuth,
-    private router: Router,
-    private route: ActivatedRoute,
-    // private auth: Auth
-  ) {}
+//   constructor(
+//     private apiAuth: ApiAuth,
+//     private router: Router,
+//     private route: ActivatedRoute,
+//     // private auth: Auth
+//   ) {}
   
-ngOnInit() {
-  this.route.queryParamMap.subscribe(params => {
-    const token = params.get('token');
+// ngOnInit() {
+//   this.route.queryParamMap.subscribe(params => {
+//     const token = params.get('token');
     
-  });
-}
+//   });
+// }
 
 
-  // login(forms: any){
-  //   if (!this.email || !this.password) {
-  //     alert('Please fill in all fields');
-  //     return;
-  //   }
 
-//   login() {
+// login() {
 //   if (!this.email || !this.password) {
 //     alert('Please fill in all fields');
 //     return;
 //   }
-    
- 
 
-//   this.apiAuth.login({ email: this.email, password: this.password }).subscribe({
+//   this.apiAuth.login({
+//     email: this.email.trim(),
+//     password: this.password.trim()
+//   }).subscribe({
 //     next: (response: any) => {
 //       console.log('Login successful:', response);
-//       if (response.data && response.data.accessToken){
+
 //       localStorage.setItem('token', response.data.accessToken);
-//       console.log('Token saved:', response.data.accessToken);
-//       this.userId = response.data.id;      
+
 //       this.router.navigate(['/menu']);
-//       } 
 //     },
 //     error: (err) => {
-    
-//       const errorMessage = err.error?.detail || err.detail || "";
-//       console.log('Detected Error Message:', errorMessage);
-//       if (errorMessage.includes("Please check your email for verification code")) {
-       
-//         this.router.navigate(['/verifyemail'], { queryParams: { email: this.email } });
-//       } else {
-//         alert('Login error: ' + (errorMessage || 'Incorrect data'));
-//         console.error(err);
-//       }
+//       console.log(err);
+//       alert(err.error?.detail || 'Login failed');
 //     }
 //   });
 // }
 
 
 
-login() {
-  if (!this.email || !this.password) {
-    alert('Please fill in all fields');
-    return;
+// }
+
+import { Component, OnInit } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { Router, RouterModule, ActivatedRoute } from '@angular/router';
+import { Api } from '../services/api';
+
+@Component({
+  selector: 'app-login',
+  standalone: true,
+  imports: [FormsModule, CommonModule, RouterModule],
+  templateUrl: './login.html',
+  styleUrl: './login.scss'
+})
+export class Login implements OnInit {
+
+  email = '';
+  password = '';
+
+  constructor(
+    private api: Api,
+    private router: Router,
+    private route: ActivatedRoute
+  ) {}
+
+  ngOnInit() {
+    this.route.queryParamMap.subscribe(params => {
+      const token = params.get('token');
+    });
   }
 
-  this.apiAuth.login({
-    email: this.email.trim(),
-    password: this.password.trim()
-  }).subscribe({
-    next: (response: any) => {
-      console.log('Login successful:', response);
-
-      localStorage.setItem('token', response.data.accessToken);
-
-      this.router.navigate(['/menu']);
-    },
-    error: (err) => {
-      console.log(err);
-      alert(err.error?.detail || 'Login failed');
+  login() {
+    if (!this.email || !this.password) {
+      alert('Please fill in all fields');
+      return;
     }
-  });
-}
 
+    this.api.login({
+      email: this.email.trim(),
+      password: this.password.trim()
+    }).subscribe({
+      next: (res: any) => {
 
+        localStorage.setItem('token', res.data.accessToken);
 
+        this.router.navigate(['/menu']);
+      },
+      error: (err) => {
+        console.log(err);
+        alert(err.error?.detail || 'Login failed');
+      }
+    });
+  }
 }

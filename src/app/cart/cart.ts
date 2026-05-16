@@ -26,4 +26,21 @@ export class Cart {
     this.cartService.remove(id);
     this.cartItems = this.cartService.getCart();
   }
+
+  getSubtotal() {
+  return this.cartItems
+    .reduce((sum, item) => sum + item.price * item.quantity, 0)
+    .toFixed(2);
+}
+
+getTax() {
+  return (Number(this.getSubtotal()) * 0.10).toFixed(2);
+}
+
+getTotal() {
+  return (
+    Number(this.getSubtotal()) +
+    Number(this.getTax())
+  ).toFixed(2);
+}
 }

@@ -37,6 +37,9 @@ export const routes: Routes = [
     {
         path:`verifyemail`,
         loadComponent:()=>import('./verifyemail/verifyemail').then(m=>m.Verifyemail)
+    },{
+        path:`admin`,
+        loadComponent:()=>import('./admin/admin').then(m=>m.Admin),
     },
     {
         path:`**`,

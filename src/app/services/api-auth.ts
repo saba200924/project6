@@ -45,21 +45,6 @@ export class ApiAuth {
   }
 
 
-
-  // resendEmailVerification(email: string) {
-
-  //   return this.http.post(
-  //     this.baseUrl + `auth/resend-email-verification/${email}`,
-  //     { email },
-  //     {
-  //       headers: {
-  //         "X-API-KEY": this.apiKey
-  //       }
-  //     }
-  //   );
-
-  // }
-
   resendEmailVerification(email: string) {
   return this.http.post(
     this.baseUrl + `auth/resend-email-verification/${email}`,
@@ -72,36 +57,6 @@ export class ApiAuth {
   );
 }
 
-//   resendEmailVerification(email: string) {
-//   return this.http.post(
-//     this.baseUrl + `auth/resend-email-verification`,
-//     { email },
-//     {
-//       headers: { "X-API-KEY": this.apiKey }
-//     }
-//   );
-// }
-
-
-
-  // emailVerification(data: { email: string, code: string }) {
-
-  //   let body = {
-  //     email: data.email,
-  //     code: data.code
-  //   };
-
-  //   return this.http.put(
-  //     this.baseUrl + `auth/verify-email`,
-  //     body,
-  //     {
-  //       headers: {
-  //         "X-API-KEY": this.apiKey
-  //       }
-  //     }
-  //   );
-
-  // }
 
 
   emailVerification(data: { email: string, code: string }) {
@@ -131,20 +86,6 @@ export class ApiAuth {
   }
 
 
-
-  // forgotpassword(email: string) {
-
-  //   return this.http.post(
-  //     this.baseUrl + `auth/forgot-password/${email}`,
-  //     { email },
-  //     {
-  //       headers: {
-  //         "X-API-KEY": this.apiKey
-  //       }
-  //     }
-  //   );
-
-  // }
 
   forgotpassword(email: string) {
   return this.http.post(

@@ -44,14 +44,13 @@ export class Home {
   quantity = 1;
 
 
-// Add 'item: Product' and 'event: Event' as parameters
 addToCart(item: Product, event: Event) {
-  // 1. Prevent the card's routerLink from firing
+
   event.stopPropagation();
   event.preventDefault();
 
-  // 2. Use the 'item' passed from the HTML, not 'this.selectedProduct'
-  const qty = 1; // Default to 1 for home page quick-add
+
+  const qty = 1;
   this.cartService.addToCart(item, qty);
 
   console.log('Added:', item.name, 'Quantity:', qty);
@@ -59,10 +58,10 @@ addToCart(item: Product, event: Event) {
   this.toastMessage = `✅ Added ${item.name} to cart!`;
   this.showToast = true;
 
-  // Change 0 to 3000 so the user actually sees the message
+
   setTimeout(() => {
     this.showToast = false;
-    this.cdr.detectChanges(); // Ensure the UI updates to hide toast
+    this.cdr.detectChanges();
   }, 3000);
 }
 

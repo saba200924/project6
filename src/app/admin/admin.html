@@ -1,0 +1,162 @@
+<div class="admin-container">
+
+  <h1>Admin Panel</h1>
+
+  <!-- TABS -->
+  <div class="tabs">
+
+    <button (click)="setTab('categories')" [class.active]="activeTab === 'categories'">
+      📂 Categories
+    </button>
+
+    <button (click)="setTab('products')" [class.active]="activeTab === 'products'">
+      🍔 Products
+    </button>
+
+  </div>
+
+  <!-- ================= CATEGORIES ================= -->
+  @if (activeTab === 'categories') {
+
+    <div class="section-header">
+
+      <h2>Categories</h2>
+
+      <button class="add-btn" (click)="resetCategory()">
+        + Add Category
+      </button>
+
+    </div>
+
+    <!-- CATEGORY INPUT -->
+    <div class="category-form">
+      <input [(ngModel)]="categoryName" placeholder="Category name" />
+      <button (click)="saveCategory()">
+        {{ editingCategoryId ? 'Update' : 'Create' }}
+      </button>
+    </div>
+
+    <div class="category-list">
+
+      @for (c of categories; track c.id) {
+
+        <div class="category-card">
+
+          <div class="left">
+            <span>📁</span>
+            <div>
+              <h3>{{ c.name }}</h3>
+              <small>#{{ c.id }}</small>
+            </div>
+          </div>
+
+          <div class="actions">
+            <button (click)="editCategory(c)">✏️</button>
+            <button (click)="deleteCategory(c.id)">🗑️</button>
+          </div>
+
+        </div>
+
+      }
+
+    </div>
+
+  }
+
+  <!-- ================= PRODUCTS ================= -->
+  @if (activeTab === 'products') {
+
+    <div class="section-header">
+
+      <h2>Products</h2>
+
+      <button class="add-btn" (click)="openProductDrawer()">
+        + Add Product
+      </button>
+
+    </div>
+
+    <div class="product-list">
+
+      @for (p of products; track p.id) {
+
+        <div class="product-card">
+
+          <img [src]="p.image" />
+
+          <div class="info">
+
+            <h3>{{ p.name }}</h3>
+            <p>{{ p.description }}</p>
+
+            <div class="meta">
+              <span>💰 {{ p.price }}</span>
+              <span>🌶 {{ p.spiciness }}</span>
+              <span>⭐ {{ p.rate }}</span>
+
+              @if (p.vegetarian) {
+                <span>🥦</span>
+              }
+            </div>
+
+          </div>
+
+          <div class="actions">
+            <button (click)="editProduct(p)">✏️</button>
+            <button (click)="deleteProduct(p.id)">🗑️</button>
+          </div>
+
+        </div>
+
+      }
+
+    </div>
+
+  }
+
+</div>
+
+<!-- ================= PRODUCT DRAWER ================= -->
+@if (showDrawer) {
+
+  <div class="overlay" (click)="closeDrawer()"></div>
+
+  <div class="drawer">
+
+    <h2>{{ editingProductId ? 'Edit Product' : 'Add Product' }}</h2>
+
+    <input [(ngModel)]="name" placeholder="Name" />
+    <input [(ngModel)]="description" placeholder="Description" />
+    <input [(ngModel)]="price" type="number" placeholder="Price" />
+    <input [(ngModel)]="image" placeholder="Image URL" />
+
+    <select [(ngModel)]="categoryId">
+      <option value="">Select category</option>
+      @for (c of categoriesList; track c.id) {
+        <option [value]="c.id">{{ c.name }}</option>
+      }
+    </select>
+
+    <label>Spiciness: {{ spiciness }}</label>
+    <input type="range" min="0" max="5" [(ngModel)]="spiciness" />
+
+    <label>
+      <input type="checkbox" [(ngModel)]="vegetarian" />
+      Vegetarian
+    </label>
+
+    <input [(ngModel)]="method" placeholder="Method" />
+    <input [(ngModel)]="ingredientsText" placeholder="Ingredients (comma separated)" />
+
+    <div class="drawer-actions">
+
+      <button (click)="closeDrawer()">Cancel</button>
+      <button (click)="saveProduct()">
+        {{ editingProductId ? 'Update' : 'Create' }}
+      </button>
+
+    </div>
+
+  </div>
+
+}

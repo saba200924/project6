@@ -43,18 +43,6 @@ export class Verifyemail {
   }
 
 
-
-  //   resend() {
-  //   if (!this.email) {
-  //     alert('Email not found');
-  //     return;
-  //   }
-  //   this.apiAuth.resendEmailVerification(this.email).subscribe({
-  //     next: () => alert('A new code has been sent to your email.'),
-  //     error: (err) => alert('Error sending')
-  //   });
-  // }
-
   resend() {
   if (!this.email) {
     alert('Email not found');
@@ -68,7 +56,6 @@ export class Verifyemail {
     error: (err) => {
       console.log('Resend error:', err);
 
-      // show real backend message if exists
       alert(err.error?.detail || err.error?.title || 'Failed to send verification email');
     }
   });
