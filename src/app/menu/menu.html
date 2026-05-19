@@ -4,9 +4,9 @@
   <aside class="sidebar">
 
     <div class="filter">
+
       <!-- SEARCH -->
       <div class="filter-item">
-
         <label>Search</label>
 
         <input
@@ -15,12 +15,10 @@
           type="search"
           placeholder="Search dishes..."
         >
-
       </div>
 
       <!-- CATEGORY -->
       <div class="filter-item">
-
         <h4>Categories</h4>
 
         <div class="filter-group">
@@ -40,35 +38,27 @@
             </label>
 
           } @empty {
-
             <p>Loading categories...</p>
-
           }
 
         </div>
-
       </div>
 
       <!-- VEGETARIAN -->
       <div class="filter-item">
-
         <label class="toggle-label">
-
           Vegetarian Only
 
           <input
-           [(ngModel)]="vegeterian"
-             (change)="loadProducts()"
-               type="checkbox"
-            />
-
+            [(ngModel)]="vegeterian"
+            (change)="loadProducts()"
+            type="checkbox"
+          />
         </label>
-
       </div>
 
       <!-- SPICY -->
       <div class="filter-item">
-
         <p>Spiciness (0-5)</p>
 
         <input
@@ -81,12 +71,10 @@
         >
 
         <span>Level: {{ spiciness }}</span>
-
       </div>
 
       <!-- RATING -->
       <div class="filter-item">
-
         <p>Minimum Rating</p>
 
         <input
@@ -99,12 +87,10 @@
         >
 
         <span>⭐ {{ rate }}+</span>
-
       </div>
 
       <!-- MIN PRICE -->
       <div class="filter-item">
-
         <p>Min Price</p>
 
         <input
@@ -116,12 +102,10 @@
         >
 
         <span>$ {{ minPrice }}+</span>
-
       </div>
 
       <!-- MAX PRICE -->
       <div class="filter-item">
-
         <p>Max Price</p>
 
         <input
@@ -133,14 +117,10 @@
         >
 
         <span>$ {{ maxPrice }}</span>
-
       </div>
 
       <!-- RESET -->
-      <button
-        class="clear-btn"
-        (click)="resetFilter()"
-      >
+      <button class="clear-btn" (click)="resetFilter()">
         Clear All Filters
       </button>
 
@@ -155,9 +135,14 @@
 
       <div class="products-container">
 
-        @for (item of productsarr; track $index) {
+        @for (item of productsarr; track item.id) {
 
-        <div routerLink="/details" [queryParams]="{ id: item.id }">
+          <!-- PRODUCT CARD -->
+          <div
+            class="product-card"
+            [routerLink]="['/details']"
+            [queryParams]="{ id: item.id }"
+          >
 
             <img
               [src]="item.image"
@@ -191,25 +176,23 @@
 
                 @if(isLoggedIn){
 
-                  <a
-                    href="#"
+                  <button
+                    type="button"
                     class="btn btn-primary"
                     (click)="addToCart(item, $event)"
                   >
                     Add to Cart
-                  </a>
+                  </button>
 
-                }
+                } @else {
 
-                @else {
-
-                  <a
-                    href="#"
+                  <button
+                    type="button"
                     class="btn btn-danger"
                     (click)="showLoginAlert($event)"
                   >
                     Add to Cart
-                  </a>
+                  </button>
 
                 }
 
@@ -223,22 +206,15 @@
 
       </div>
 
-    }
-
-    @else {
+    } @else {
 
       <div class="empty-products">
-
         <h2>Products not found</h2>
-
-        <p>
-          Try changing filters or reset everything.
-        </p>
+        <p>Try changing filters or reset everything.</p>
 
         <button (click)="resetFilter()">
           Reset Filters
         </button>
-
       </div>
 
     }
@@ -248,7 +224,6 @@
 </div>
 
 <!-- TOAST -->
-
 <div class="toast" [class.show]="showToast">
   {{ toastMessage }}
 </div>

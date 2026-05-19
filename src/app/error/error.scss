@@ -12,14 +12,12 @@
   animation: bgZoom 20s infinite alternate;
 }
 
-/* Dark overlay */
 .overlay {
   position: absolute;
   inset: 0;
   background: rgba(0, 0, 0, 0.300);
 }
 
-/* Card */
 .card {
   position: relative;
   background: rgba(255,255,255,0.95);
@@ -33,7 +31,6 @@
 }
 
 
-/* 404 */
 .code {
   font-size: 90px;
   margin: 0;
@@ -42,13 +39,11 @@
   text-shadow: 0 0 20px rgba(255, 107, 44, 0.4);
 }
 
-/* Title */
 .card h2 {
   color: #333;
   margin: 10px 0;
 }
 
-/* Text */
 .card p {
   color: #555;
   font-size: 15px;
@@ -56,7 +51,6 @@
   margin-bottom: 30px;
 }
 
-/* Button */
 .btn {
   background: #ff6b2c;
   color: white;
@@ -78,7 +72,6 @@
   transform: scale(0.96);
 }
 
-/* Animation */
 @keyframes fadeUp {
   from {
     opacity: 0;
@@ -99,7 +92,6 @@
   }
 }
 
-/* 📱 Responsive */
 @media (max-width: 480px) {
   .card {
     padding: 35px 20px;

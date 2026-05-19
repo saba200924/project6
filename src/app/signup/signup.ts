@@ -17,15 +17,6 @@ export class Signup {
    private FB: FormBuilder
   ) {
 
-// this.signInForm = this.FB.group ({
-//   firstName: ["", [Validators.required, Validators.pattern(/^[A-Za-z]+$/)]],
-//   lastName: ["",[Validators.required, Validators.pattern(/^[A-Za-z]+$/)]],
-//   email: ["", [Validators.required, Validators.email]],
-//   password: ["", [Validators.required,Validators.minLength(6), Validators.pattern(/^(?=.*[A-Z])(?=.*[^A-Za-z0-9]).+$/)
-//   ]]
-// })
-// }
-
 this.signInForm = this.FB.group({
       firstName: ["", [Validators.required, Validators.pattern(/^[A-Za-z]+$/)]],
       lastName: ["", [Validators.required, Validators.pattern(/^[A-Za-z]+$/)]],

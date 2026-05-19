@@ -1,121 +1,3 @@
-// import { ChangeDetectorRef, Component } from '@angular/core';
-// import { CommonModule } from '@angular/common';
-// import { FormsModule } from '@angular/forms';
-// import { Api } from '../services/api';
-
-// @Component({
-//   selector: 'app-admin',
-//   standalone: true,
-//   imports: [CommonModule, FormsModule],
-//   templateUrl: './admin.html',
-//   styleUrl: './admin.scss'
-// })
-// export class Admin {
-
-//   constructor(
-//     private api: Api,
-//     private cdr: ChangeDetectorRef
-//   ) {}
-
-//   categories: any[] = [];
-
-//   showDrawer = false;
-
-//   categoryName = '';
-
-//   editingId: number | null = null;
-
-//   loading = false;
-
-//   ngOnInit() {
-//     this.loadCategories();
-//   }
-
-//   loadCategories() {
-//     this.loading = true;
-
-//     this.api.getAll('categories').subscribe({
-//       next: (res: any) => {
-//         this.categories = res.data;
-//         this.loading = false;
-//         this.cdr.detectChanges();
-//       },
-//       error: () => {
-//         this.loading = false;
-//         alert('Failed to load categories');
-//       }
-//     });
-//   }
-
-//   openDrawer() {
-//     this.showDrawer = true;
-//   }
-
-//   closeDrawer() {
-//     this.showDrawer = false;
-//     this.categoryName = '';
-//     this.editingId = null;
-//   }
-
-//   createCategory() {
-
-//     if (!this.categoryName.trim()) {
-//       alert('Enter category name');
-//       return;
-//     }
-
-//     const body = {
-//       name: this.categoryName.trim()
-//     };
-
-//     // UPDATE
-//     if (this.editingId !== null) {
-
-//       this.api.put(`categories/${this.editingId}`, body).subscribe({
-//         next: () => {
-//           this.closeDrawer();
-//           this.loadCategories();
-//           alert('Category updated');
-//         },
-//         error: () => alert('Update failed')
-//       });
-
-//       return;
-//     }
-
-//     // CREATE
-//     this.api.post('categories', body).subscribe({
-//       next: () => {
-//         this.closeDrawer();
-//         this.loadCategories();
-//         alert('Category created');
-//       },
-//       error: () => alert('Create failed')
-//     });
-//   }
-
-//   editCategory(item: any) {
-//     this.categoryName = item.name;
-//     this.editingId = item.id;
-//     this.showDrawer = true;
-//   }
-
-//   deleteCategory(id: number) {
-
-//     const ok = confirm('Delete this category?');
-//     if (!ok) return;
-
-//     this.api.delete(`categories/${id}`).subscribe({
-//       next: () => {
-//         this.loadCategories();
-//         alert('Category deleted');
-//       },
-//       error: () => alert('Delete failed')
-//     });
-//   }
-// }
-
-
 import { ChangeDetectorRef, Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -136,22 +18,15 @@ export class Admin {
     private cdr: ChangeDetectorRef
   ) {}
 
-  // TAB CONTROL
   activeTab: 'categories' | 'products' = 'categories';
 
-  // CATEGORIES
   categories: any[] = [];
   categoryName = '';
   editingCategoryId: number | null = null;
-
-  // PRODUCTS
   products: Product[] = [];
   categoriesList: any[] = [];
-
-  // PRODUCT FORM
   showDrawer = false;
   editingProductId: number | null = null;
-
   name = '';
   description = '';
   price = 0;
@@ -167,14 +42,11 @@ export class Admin {
     this.loadProducts();
   }
 
-  // SWITCH TAB
+
   setTab(tab: 'categories' | 'products') {
     this.activeTab = tab;
   }
 
-  // =======================
-  // CATEGORIES
-  // =======================
 
   loadCategories() {
     this.api.getAll('categories').subscribe({
@@ -217,21 +89,39 @@ export class Admin {
   }
 
   deleteCategory(id: number) {
-    if (!confirm('Delete category?')) return;
 
-    this.api.delete(`categories/${id}`).subscribe({
-      next: () => this.loadCategories()
-    });
+  const staticIds = [1, 2, 3, 4, 5, 6];
+
+  if (staticIds.includes(id)) {
+    alert("You can't delete default categories");
+    return;
   }
+
+  if (!confirm('Delete category?')) return;
+
+  this.api.delete(`categories/${id}`).subscribe({
+
+    next: () => {
+
+      this.categories = this.categories.filter(c => c.id !== id);
+
+      this.loadCategories();
+
+      this.cdr.detectChanges();
+    },
+
+    error: (err) => {
+      console.log(err);
+    }
+
+  });
+}
 
   resetCategory() {
     this.categoryName = '';
     this.editingCategoryId = null;
   }
 
-  // =======================
-  // PRODUCTS
-  // =======================
 
   loadProducts() {
     this.api.getAll('products?Take=100&Page=1').subscribe({
@@ -303,12 +193,41 @@ export class Admin {
   }
 
   deleteProduct(id: number) {
-    if (!confirm('Delete product?')) return;
 
-    this.api.delete(`products/${id}`).subscribe({
-      next: () => this.loadProducts()
-    });
+  const staticProductIds = [
+    1,2,3,4,5,6,7,8,9,10,
+    11,12,13,14,15,16,17,
+    18,19,20,21,22,23,24,
+    25,26,27,28,29,30,31,
+    32,33,34,35,36,37,38,
+    39,40,41,42,43,44,45,
+    46,47,48,49,50
+  ];
+
+  if (staticProductIds.includes(id)) {
+    alert("You can't delete default products");
+    return;
   }
+
+  if (!confirm('Delete product?')) return;
+
+  this.api.delete(`products/${id}`).subscribe({
+
+    next: () => {
+
+      this.products = this.products.filter(p => p.id !== id);
+
+      this.loadProducts();
+
+      this.cdr.detectChanges();
+    },
+
+    error: (err) => {
+      console.log(err);
+    }
+
+  });
+}
 
   resetProduct() {
     this.name = '';

@@ -10,24 +10,8 @@ import { Router, RouterLink, RouterModule } from "@angular/router";
 export class Error {
   constructor(private router : Router) {}
 
-
-
-
-
-
-
-
-
   gotohome(){
     this.router.navigate([`/home`])
   }
-
-
-
-
-
-
-
-
 
 }

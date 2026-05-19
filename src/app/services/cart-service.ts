@@ -1,50 +1,124 @@
+// import { Injectable } from '@angular/core';
+// import { Api } from './api';
+// import { BehaviorSubject } from 'rxjs';
+// import { tap } from 'rxjs/operators';
+
+// @Injectable({
+//   providedIn: 'root',
+// })
+// export class CartService {
+
+//   constructor(private api: Api) {}
+
+//   // ===== STATE (REACTIVE CART) =====
+//   private cartSubject = new BehaviorSubject<any[]>([]);
+//   cart$ = this.cartSubject.asObservable();
+
+// refreshCart() {
+//   this.api.getAll('cart').subscribe((res: any) => {
+//     console.log('🛒 CART RESPONSE:', res);
+
+//     this.cartSubject.next(res.data.items || []);
+//   });
+// }
+
+//   // ===== ADD TO CART =====
+//   addToCart(productId: number, quantity: number) {
+//     const body = { productId, quantity };
+
+//     return this.api.post('cart/add-to-cart', body).pipe(
+//       tap(() => this.refreshCart())
+//     );
+//   }
+
+//   // ===== EDIT QUANTITY =====
+//   editQuantity(itemId: number, quantity: number) {
+//     const body = { itemId, quantity };
+
+//     return this.api.put('cart/edit-quantity', body).pipe(
+//       tap(() => this.refreshCart())
+//     );
+//   }
+
+//   // ===== REMOVE ITEM =====
+//   removeItem(itemId: number) {
+//     return this.api.delete(`cart/remove-from-cart/${itemId}`).pipe(
+//       tap(() => this.refreshCart())
+//     );
+//   }
+
+//   // ===== CHECKOUT =====
+//   checkout() {
+//     return this.api.post('cart/checkout', {}).pipe(
+//       tap(() => this.refreshCart())
+//     );
+//   }
+// }
+
+
 import { Injectable } from '@angular/core';
+import { Api } from './api';
+import { BehaviorSubject } from 'rxjs';
+import { tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CartService {
-   private cart: any[] = [];
 
-  constructor() {
-    let saved = localStorage.getItem('cart');
-    this.cart = saved ? JSON.parse(saved) : [];
+  constructor(private api: Api) {}
+
+  // ===== STATE =====
+  private cartSubject = new BehaviorSubject<any[]>([]);
+  cart$ = this.cartSubject.asObservable();
+
+  // ===== LOAD CART =====
+  refreshCart() {
+    this.api.getAll('cart').subscribe((res: any) => {
+      console.log('🛒 CART RESPONSE:', res);
+
+      this.cartSubject.next(res.data.items || []);
+    });
   }
 
-  getCart() {
-    return this.cart;
+  // ===== ADD =====
+  addToCart(productId: number, quantity: number) {
+    const body = { productId, quantity };
+
+    return this.api.post('cart/add-to-cart', body).pipe(
+      tap(() => {
+        // optimistic refresh (fast UI)
+        this.refreshCart();
+      })
+    );
   }
 
-  addToCart(product: any, quantity: number) {
-    let existing = this.cart.find(p => p.id === product.id);
+  // ===== UPDATE QTY =====
+  editQuantity(itemId: number, quantity: number) {
+    const body = { itemId, quantity };
 
-    if (existing) {
-      existing.quantity += quantity;
-    } else {
-      this.cart.push({ ...product, quantity });
-    }
-
-    this.save();
+    return this.api.put('cart/edit-quantity', body).pipe(
+      tap(() => {
+        this.refreshCart();
+      })
+    );
   }
 
-  increase(id: number) {
-    let item = this.cart.find(p => p.id === id);
-    if (item) item.quantity++;
-    this.save();
+  // ===== REMOVE =====
+  removeItem(itemId: number) {
+    return this.api.delete(`cart/remove-from-cart/${itemId}`).pipe(
+      tap(() => {
+        this.refreshCart();
+      })
+    );
   }
 
-  decrease(id: number) {
-    let item = this.cart.find(p => p.id === id);
-    if (item && item.quantity > 1) item.quantity--;
-    this.save();
-  }
-
-  remove(id: number) {
-    this.cart = this.cart.filter(p => p.id !== id);
-    this.save();
-  }
-
-  private save() {
-    localStorage.setItem('cart', JSON.stringify(this.cart));
+  // ===== CHECKOUT =====
+  checkout() {
+    return this.api.post('cart/checkout', {}).pipe(
+      tap(() => {
+        this.refreshCart();
+      })
+    );
   }
 }

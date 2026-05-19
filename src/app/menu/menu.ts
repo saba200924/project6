@@ -358,20 +358,62 @@ export class Menu {
   }
 
   // CART
-  addToCart(item: Product, event: Event) {
-    event.stopPropagation();
-    event.preventDefault();
+// addToCart(item: Product, event: Event) {
 
-    this.cartService.addToCart(item, 1);
+//   event.stopPropagation();
+//   event.preventDefault();
 
-    this.toastMessage = `Added ${item.name}`;
-    this.showToast = true;
+//   this.cartService.addToCart(item.id, 1).subscribe({
 
-    setTimeout(() => {
-      this.showToast = false;
+//     next: () => {
+
+//       this.toastMessage = `Added ${item.name}`;
+//       this.showToast = true;
+
+//       setTimeout(() => {
+//         this.showToast = false;
+//         this.cdr.detectChanges();
+//       }, 3000);
+
+//     },
+
+//     error: (err) => {
+//       console.log(err);
+//     }
+
+//   });
+
+// }
+
+addToCart(item: Product, event: Event) {
+
+  // IMPORTANT: only stop propagation, NOT preventDefault
+  event.stopPropagation();
+
+  // instant feedback (IMPORTANT)
+  this.toastMessage = `Adding ${item.name}...`;
+  this.showToast = true;
+
+  this.cartService.addToCart(item.id, 1).subscribe({
+    next: () => {
+
+      this.toastMessage = `Added ${item.name}`;
       this.cdr.detectChanges();
-    }, 3000);
-  }
+
+      setTimeout(() => {
+        this.showToast = false;
+        this.cdr.detectChanges();
+      }, 1500);
+
+    },
+
+    error: (err) => {
+      console.log(err);
+      this.toastMessage = `Failed to add`;
+      this.showToast = true;
+    }
+  });
+}
 
   // AUTH CHECK
   get isLoggedIn(): boolean {

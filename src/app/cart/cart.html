@@ -5,28 +5,28 @@
 
     <div class="cart-header">
       <h1>Shopping Cart</h1>
-      <p>{{cartItems.length}} items</p>
+      <p>{{ cartItems.length }} items</p>
     </div>
 
     @for (item of cartItems; track item.id) {
 
       <div class="cart-item">
 
-        <!-- IMAGE -->
-        <img [src]="item.image" class="cart-img" alt="food">
+        <img [src]="item.product.image" class="cart-img" alt="food">
 
-        <!-- INFO -->
         <div class="cart-info">
 
           <div class="top-row">
 
             <div>
-              <h3>{{item.name}}</h3>
-              <p>{{item.description}}</p>
+              <h3>{{ item.product.name }}</h3>
+              <p>{{ item.product.description }}</p>
             </div>
 
-            <!-- REMOVE -->
-            <button class="remove-btn" (click)="remove(item.id)">
+            <button
+              type="button"
+              class="remove-btn"
+              (click)="remove(item.id)">
               🗑
             </button>
 
@@ -34,17 +34,19 @@
 
           <div class="bottom-row">
 
-            <!-- QUANTITY -->
             <div class="quantity">
-              <button (click)="decrease(item.id)">−</button>
-              <span>{{item.quantity}}</span>
-              <button (click)="increase(item.id)">+</button>
+
+              <button type="button" (click)="decrease(item)">−</button>
+
+              <span>{{ item.quantity }}</span>
+
+              <button type="button" (click)="increase(item)">+</button>
+
             </div>
 
-            <!-- PRICE -->
             <div class="cart-price">
-              <p>${{item.price}} each</p>
-              <h2>${{item.price * item.quantity}}</h2>
+              <p>${{ item.product.price }} each</p>
+              <h2>${{ item.product.price * item.quantity }}</h2>
             </div>
 
           </div>
@@ -57,27 +59,30 @@
 
   </div>
 
-  <!-- RIGHT SIDE -->
   <div class="summary">
 
     <h2>Order Summary</h2>
 
     <div class="summary-row">
       <span>Subtotal</span>
-      <span>${{getSubtotal()}}</span>
+      <span>${{ getSubtotal() }}</span>
     </div>
 
     <div class="summary-row">
       <span>Tax (10%)</span>
-      <span>${{getTax()}}</span>
+      <span>${{ getTax() }}</span>
     </div>
 
     <div class="summary-total">
       <span>Total</span>
-      <span>${{getTotal()}}</span>
+      <span>${{ getTotal() }}</span>
     </div>
 
-    <button class="checkout-btn">
+    <button
+    [disabled]="!cartItems.length"
+      type="button"
+      class="checkout-btn"
+      (click)="checkout()">
       Proceed to Checkout
     </button>
 

@@ -70,44 +70,11 @@ export class ApiAuth {
 }
 
 
-
   refreshAccesToken(refreshToken: string) {
 
     return this.http.post(
       this.baseUrl + `auth/refresh-access-token/${refreshToken}`,
       { refreshToken },
-      {
-        headers: {
-          "X-API-KEY": this.apiKey
-        }
-      }
-    );
-
-  }
-
-
-
-  forgotpassword(email: string) {
-  return this.http.post(
-    this.baseUrl + `auth/forgot-password`,
-    { email },
-    {
-      headers: { "X-API-KEY": this.apiKey }
-    }
-  );
-}
-
-
-
-  resetPassword(data: {
-    email: string,
-    password: string,
-    token: string
-  }) {
-
-    return this.http.post(
-      this.baseUrl + `auth/reset-password`,
-      data,
       {
         headers: {
           "X-API-KEY": this.apiKey

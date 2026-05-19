@@ -5,6 +5,7 @@
   font-family: Arial, sans-serif;
   background: #f8fafc;
   min-height: 100vh;
+  margin-top: 70px;
 }
 
 /* TABS */
@@ -44,7 +45,6 @@
   cursor: pointer;
 }
 
-/* ================= CATEGORY STYLE (SIMPLE CLEAN) ================= */
 .category-list {
   display: flex;
   flex-direction: column;
@@ -73,7 +73,6 @@
   font-size: 22px;
 }
 
-/* ================= PRODUCT STYLE (RICH CARD) ================= */
 .product-list {
   display: flex;
   flex-direction: column;
@@ -139,7 +138,6 @@
   background: #fee2e2;
 }
 
-/* ================= DRAWERS ================= */
 .overlay {
   position: fixed;
   inset: 0;
@@ -155,6 +153,7 @@
   background: white;
   padding: 20px;
   overflow-y: auto;
+  margin-top: 70px;
 }
 
 .drawer.small {

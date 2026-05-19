@@ -38,9 +38,6 @@ export class Details {
   });
 }
 
-
-
-
   selectedid = 0
 
   productsarr : Product[]=[]
@@ -63,17 +60,36 @@ decrease() {
   }
 }
 
+
+
 addToCart() {
-  this.cartService.addToCart(this.selectedProduct, this.quantity);
-  console.log('Added:', this.selectedProduct, 'Quantity:', this.quantity);
-    this.toastMessage = `✅ Added ${this.quantity} item${this.quantity > 1 ? 's' : ''} successfully`;
+  if (!this.selectedProduct) return;
 
-  this.showToast = true;
+  this.cartService.addToCart(this.selectedProduct.id, this.quantity).subscribe({
+    next: () => {
+      this.showToast = false;
+      this.cdr.detectChanges();
 
-  setTimeout(() => {
-  this.showToast = false;
-  this.cdr.detectChanges();
-}, 3000);
+      setTimeout(() => {
+        console.log('Added:', this.selectedProduct?.name, 'Quantity:', this.quantity);
+
+        this.toastMessage = `✅ Added ${this.quantity} item${this.quantity > 1 ? 's' : ''} successfully`;
+        this.showToast = true;
+
+        this.cdr.detectChanges();
+      });
+
+      setTimeout(() => {
+        this.showToast = false;
+        this.cdr.detectChanges();
+      }, 2500);
+
+    },
+
+    error: (err) => {
+      console.error('Error adding to cart', err);
+    }
+  });
 }
 
 }

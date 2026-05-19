@@ -16,59 +16,70 @@
   </div>
 </section>
 
-
 <section class="popular-section">
-
-  <h2 class="popular-title">
-    Popular Dishes
-  </h2>
-
+  <h2 class="popular-title">Popular Dishes</h2>
 </section>
 
 <!-- PRODUCTS -->
 <div class="products-container">
+
   @for (item of productsarr; track item.id) {
 
-    <!-- The whole card navigates to details -->
-    <div class="card" [routerLink]="['/details']" [queryParams]="{id: item.id}">
-      
-      <img [src]="item.image" class="card-img-top" alt="...">
+    <!-- CLEAN CARD (NO routerLink HERE) -->
+    <div class="card">
+
+      <!-- CLICK ONLY IMAGE -->
+      <img
+        [src]="item.image"
+        class="card-img-top"
+        alt="..."
+        (click)="goToDetails(item.id)"
+        style="cursor: pointer;"
+      >
 
       <div class="card-body">
 
-        <h5 class="card-title">{{item.name}}</h5>
+        <!-- CLICK ONLY TITLE -->
+        <h5 class="card-title" (click)="goToDetails(item.id)" style="cursor: pointer;">
+          {{item.name}}
+        </h5>
 
         <p class="card-text">{{item.description}}</p>
-
         <p class="card-text">⭐ {{item.rate}}</p>
-
         <p class="card-text">${{item.price}}</p>
 
+        <!-- ADD TO CART -->
         @if(isLoggedIn){
 
           <button
+            type="button"
             class="btn btn-primary"
-            (click)="addToCart(item, $event)">
+            (click)="addToCart(item, $event)"
+          >
             Add to cart
           </button>
 
-        }
+        } @else {
 
-        @else{
-            
           <button
+            type="button"
             class="btn btn-danger"
-            (click)="showLoginAlert($event)">
+            (click)="showLoginAlert($event)"
+          >
             Add to cart
           </button>
-            
+
         }
 
       </div>
+
     </div>
+
   }
 
-  <div class="toast" [class.show]="showToast">
-    {{toastMessage}}
-  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" [class.show]="showToast">
+  {{toastMessage}}
 </div>
